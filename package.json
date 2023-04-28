@@ -1,9 +1,14 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.4",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2"
   },
   "name": "busticket",
   "description": "BusTicktet application with user and admin interfaces",
@@ -21,5 +26,13 @@
   "bugs": {
     "url": "https://github.com/Dincz/BusTicket/issues"
   },
-  "homepage": "https://github.com/Dincz/BusTicket#readme"
+  "homepage": "https://github.com/Dincz/BusTicket#readme",
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0"
+  }
 }
