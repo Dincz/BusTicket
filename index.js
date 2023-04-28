@@ -5,7 +5,7 @@ const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const connectDb = require("./Database/connection");
-const errorHandle = require("./middleware/errorHandler");
+const errorHandler = require("./middleware/errorHandler");
 
 require("dotenv").config();
 
@@ -16,13 +16,14 @@ connectDb();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use("/api/users", require("./routes/userRoutes"));
+app.use("/", require("./routes/userRoutes"));
+// app.use("/admin", require("./routes/adminRoutes"));
 
 app.get("/Homepage", (req, res) => {
     res.send("Hello user");
 });
 
-app.use(errorHandle);
+app.use(errorHandler);
 app.listen(port, () => {
     console.log(`Port running on ${port}`);
 });

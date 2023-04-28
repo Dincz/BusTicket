@@ -34,3 +34,10 @@
 //  *       404:
 //  *         description: The book was not found
 //  */
+// {
+//     "name":"Dinesh",
+//     "password":"1234",
+//     "email":"diensh@gmail.com",
+//     "gender":"male",
+//     "mobile":"87398937"
+// }

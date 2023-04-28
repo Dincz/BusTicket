@@ -1,43 +1,42 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable default-case */
+
 const { constants } = require("../constants");
 
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, req, res, next) => {
     const errorMessage = err.message;
 
     switch (errorMessage) {
     case constants.VALIDATION_ERROR.toString(): {
         res.status(constants.VALIDATION_ERROR).json({
-            message: "validaion failed",
+            message: "Validation failed",
         });
         break;
     }
-    case constants.UNATHORIZED.toString(): {
-        res.status(constants.UNATHORIZED).json({
-            message: "Authorization failed",
-        });
-        break;
-    }
+
     case constants.FORBIDDEN.toString(): {
         res.status(constants.FORBIDDEN).json({
-            message: "No Access",
+            message: "NO permission to enter",
         });
         break;
     }
     case constants.NOT_FOUND.toString(): {
         res.status(constants.NOT_FOUND).json({
-            message: "Not Found",
+            message: "not found",
         });
         break;
     }
+
+    case constants.UNATHORIZED.toString(): {
+        res.status(constants.UNATHORIZED).json({
+            message: "Authorization false",
+        });
+        break;
+    }
+
     case constants.SERVER_ERROR.toString(): {
         res.status(constants.SERVER_ERROR).json({
-            message: "Internal Server Error",
-        });
-        break;
-    }
-    case constants.SUCCESSFULL_REQUEST.toString(): {
-        res.status(constants.SUCCESSFULL_REQUEST).json({
-            message: "Successfull",
+            message: "Server Error",
         });
         break;
     }
