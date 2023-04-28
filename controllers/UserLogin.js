@@ -1,11 +1,13 @@
 const asyncHandler = require("express-async-handler");
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const {constants} = require("../constants");
+const User = require("../models/user");
+// const jwt = require("jsonwebtoken");
+const { constants } = require("../constants");
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password, gender , mobile } = req.body;
+    const {
+        name, email, password, gender, mobile,
+    } = req.body;
     if (!name || !email || !password || !gender || !mobile) {
         throw new Error(constants.VALIDATION_ERROR);
     }
@@ -26,10 +28,10 @@ const registerUser = asyncHandler(async (req, res) => {
 
     console.log(`User created ${user}`);
     if (user) {
-        res.status(constants.SUCCESSFULL_REQUEST).json({  email: user.email });
+        res.status(constants.SUCCESSFULL_REQUEST).json({ email: user.email });
     } else {
         throw new Error(constants.VALIDATION_ERROR);
     }
 });
 
-module.exports = {registerUser};
+module.exports = { registerUser };
