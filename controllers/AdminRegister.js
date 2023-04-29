@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const admin = require("../models/admin");
 const { constants } = require("../constants");
 
-const resgisterAdmin = asyncHandler(async (req, res) => {
+const registerAdmin = asyncHandler(async (req, res) => {
     const {
         name, email, password, mobile, gender,
     } = req.body;
@@ -20,10 +20,10 @@ const resgisterAdmin = asyncHandler(async (req, res) => {
     });
     console.log(`User created ${Admin}`);
     if (Admin) {
-        res.status(constants.SUCCESSFULL_REQUEST).json({ name: Admin.name });
+        res.status(constants.SUCCESSFUL_REQUEST).json({ name: Admin.name });
     } else {
         throw new Error(constants.VALIDATION_ERROR);
     }
 });
 
-module.exports = { resgisterAdmin };
+module.exports = { registerAdmin };

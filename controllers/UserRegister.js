@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-// const jwt = require("jsonwebtoken");
 const { constants } = require("../constants");
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -28,10 +28,30 @@ const registerUser = asyncHandler(async (req, res) => {
 
     console.log(`User created ${user}`);
     if (user) {
-        res.status(constants.SUCCESSFULL_REQUEST).json({ email: user.email });
+        res.status(constants.SUCCESSFUL_REQUEST).json({ email: user.email });
     } else {
         throw new Error(constants.VALIDATION_ERROR);
     }
 });
 
-module.exports = { registerUser };
+const userLogin = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    if (!password || !email) {
+        res.status(constants.NOT_FOUND);
+    }
+    const user = await User.findOne({ email });
+    if (user && (await bcrypt.compare(password, user.password))) {
+        const accessToken = jwt.sign({
+            user: {
+                username: user.name,
+                email: user.email,
+                id: user.id,
+            },
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: `${process.env.EXPIRE_TIME}m` });
+        res.status(constants.SUCCESSFUL_REQUEST).json({ accessToken });
+    } else {
+        res.status(constants.UNAUTHORIZED);
+    }
+});
+
+module.exports = { registerUser, userLogin };

@@ -27,7 +27,7 @@
 //  *     responses:
 //  *       200:
 //  *         description: The book description by id
-//  *         contens:
+//  *         contents:
 //  *           application/json:
 //  *             schema:
 //  *               $ref: '#/components/schemas/Book'
@@ -41,3 +41,4 @@
 //     "gender":"male",
 //     "mobile":"87398937"
 // }
+// process.env.ACCESS_TOKEN_SECRET, { expiresIn: `${process.env.EXPIRE_TIME}m` });

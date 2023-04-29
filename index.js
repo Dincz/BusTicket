@@ -17,7 +17,7 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use("/", require("./routes/userRoutes"));
-// app.use("/admin", require("./routes/adminRoutes"));
+app.use("/admin", require("./routes/adminRoutes"));
 
 app.get("/Homepage", (req, res) => {
     res.send("Hello user");
