@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const admin = require("../models/admin");
 const { constants } = require("../constants");
 
@@ -25,5 +26,24 @@ const registerAdmin = asyncHandler(async (req, res) => {
         throw new Error(constants.VALIDATION_ERROR);
     }
 });
+const adminLogin = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    if (!password || !email) {
+        res.status(constants.NOT_FOUND);
+    }
+    const Admin = await admin.findOne({ email });
+    if (Admin && (await bcrypt.compare(password, Admin.password))) {
+        const accessToken = jwt.sign({
+            user: {
+                username: Admin.name,
+                email: Admin.email,
+                id: Admin.id,
+            },
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: `${process.env.EXPIRE_TIME}m` });
+        res.status(constants.SUCCESSFUL_REQUEST).json({ accessToken });
+    } else {
+        res.status(constants.UNAUTHORIZED);
+    }
+});
 
-module.exports = { registerAdmin };
+module.exports = { registerAdmin, adminLogin };
