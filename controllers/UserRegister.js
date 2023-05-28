@@ -4,34 +4,35 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { constants } = require("../constants");
 
+// desc Register a user
+// route POST/api/users/register
+// access public
+// eslint-disable-next-line consistent-return
 const registerUser = asyncHandler(async (req, res) => {
     const {
-        name, email, password, gender, mobile,
+        name, email, password, mobile, gender,
     } = req.body;
-    if (!name || !email || !password || !gender || !mobile) {
-        throw new Error(constants.VALIDATION_ERROR);
+    if (!name || !email || !password || !mobile || !gender) {
+        return res.status(constants.VALIDATION_ERROR).json({ message: "All fields are mandatory" });
     }
-    // const userAvailable = await User.findOne({ email });
-    // if (userAvailable) {
-    //     throw new Error(constants.VALIDATION_ERROR);
-    // }
-    // Hash Password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("Hashed Password:", hashedPassword);
-    const user = await User.create({
+    const userAvailable = await User.findOne({ email });
+    if (userAvailable) {
+        return res.status(constants.VALIDATION_ERROR).json({ message: "You are already registered" });
+    }
+    // Encrypt password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create new user
+    const newUser = await User.create({
         name,
         email,
         password: hashedPassword,
-        gender,
         mobile,
+        gender,
     });
 
-    console.log(`User created ${user}`);
-    if (user) {
-        res.status(constants.SUCCESSFUL_REQUEST).json({ email: user.email });
-    } else {
-        throw new Error(constants.VALIDATION_ERROR);
-    }
+    res.status(constants.SUCCESSFUL_POST).json(newUser);
 });
 
 const userLogin = asyncHandler(async (req, res) => {
