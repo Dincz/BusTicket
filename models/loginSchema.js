@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const adminLoginSchema = mongoose.Schema(
+const LoginSchema = mongoose.Schema(
     {
         name: {
             type: String,
@@ -26,6 +26,11 @@ const adminLoginSchema = mongoose.Schema(
             type: String,
             required: [true, "Please add the password"],
         },
+        role: {
+            type: String,
+            enum: ["user", "admin"],
+            default: "user",
+        },
     },
     {
         timestamps: true,
@@ -33,4 +38,4 @@ const adminLoginSchema = mongoose.Schema(
 
 );
 
-module.exports = mongoose.model("Admin", adminLoginSchema);
+module.exports = mongoose.model("Login", LoginSchema);

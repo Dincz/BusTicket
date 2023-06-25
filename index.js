@@ -16,9 +16,8 @@ connectDb();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use("/api/buses", require("./routes/busRoutes"));
-app.use("/", require("./routes/userRoutes"));
-app.use("/admin", require("./routes/adminRoutes"));
+app.use("/api/v1/buses", require("./routes/busRoutes"));
+app.use("/api/v1/account", require("./routes/loginRoutes"));
 
 app.all("*", (req, res, next) => {
     // const err = new Error("Wrong URL ");

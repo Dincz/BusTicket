@@ -14,6 +14,7 @@ const schemaReg = Joi.object({
 
     gender: Joi.string().required(),
     mobile: Joi.string().required(),
+    role: Joi.string().default("user"),
 });
 
 const schemaLogin = Joi.object({
