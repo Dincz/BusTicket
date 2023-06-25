@@ -3,11 +3,11 @@
 const bcrypt = require("bcrypt");
 const user = require("../models/user");
 const { constants } = require("../constants");
-const { registerUser, userLogin } = require("../controllers/UserRegister");
+const { userRegister, userLogin } = require("../controllers/UserRegister");
 
 jest.mock("../models/user");
 jest.mock("bcrypt");
-describe("registerUser", () => {
+describe("userRegister", () => {
     afterEach(() => {
         jest.resetAllMocks();
     });
@@ -41,7 +41,7 @@ describe("registerUser", () => {
         bcrypt.hash.mockResolvedValue(hashedPassword);
         user.create.mockResolvedValue(expectedUser);
 
-        await registerUser(req, res);
+        await userRegister(req, res);
 
         expect(user.findOne).toHaveBeenCalledWith({ email: req.body.email });
         expect(bcrypt.genSalt).toHaveBeenCalledWith(10);
@@ -65,7 +65,7 @@ describe("registerUser", () => {
             json: jest.fn(),
         };
 
-        await registerUser(req, res);
+        await userRegister(req, res);
 
         expect(res.status).toHaveBeenCalledWith(constants.VALIDATION_ERROR);
         expect(res.json).toHaveBeenCalledWith({ message: "All fields are mandatory" });
@@ -88,7 +88,7 @@ describe("registerUser", () => {
 
         user.findOne.mockResolvedValue({ email: req.body.email });
 
-        await registerUser(req, res);
+        await userRegister(req, res);
 
         expect(user.findOne).toHaveBeenCalledWith({ email: req.body.email });
         expect(res.status).toHaveBeenCalledWith(constants.VALIDATION_ERROR);

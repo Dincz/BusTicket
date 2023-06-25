@@ -22,6 +22,10 @@ const adminLoginSchema = mongoose.Schema(
             type: String,
             required: [true, "Please add the password"],
         },
+        repeat_password: {
+            type: String,
+            required: [true, "Please add the password"],
+        },
     },
     {
         timestamps: true,

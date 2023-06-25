@@ -1,12 +1,12 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-param-reassign */
 const express = require("express");
-// const mongoose = require("mongoose");
-
-// const router = require("express").Router();
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 const connectDb = require("./Database/connection");
 const errorHandler = require("./middleware/errorHandler");
-
+const { constants } = require("./constants");
+const CustomError = require("./middleware/customError");
 require("dotenv").config();
 
 const app = express();
@@ -16,11 +16,16 @@ connectDb();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use("/api/buses", require("./routes/busRoutes"));
 app.use("/", require("./routes/userRoutes"));
 app.use("/admin", require("./routes/adminRoutes"));
 
-app.get("/Homepage", (req, res) => {
-    res.send("Hello user");
+app.all("*", (req, res, next) => {
+    // const err = new Error("Wrong URL ");
+    // err.status = "fail";
+    // err.statusCode = constants.NOT_FOUND;
+    const err = new CustomError(`Can't find ${req.originalUrl} on the server!`, constants.NOT_FOUND);
+    next(err);
 });
 
 app.use(errorHandler);

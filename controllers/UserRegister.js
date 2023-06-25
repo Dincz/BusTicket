@@ -1,14 +1,12 @@
+/* eslint-disable consistent-return */
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { constants } = require("../constants");
-
-// desc Register a user
-// route POST/api/users/register
-// access public
-// eslint-disable-next-line consistent-return
-const registerUser = asyncHandler(async (req, res) => {
+// desc: Registration of new user.
+// POST : userRegister
+const userRegister = asyncHandler(async (req, res) => {
     const {
         name, email, password, mobile, gender,
     } = req.body;
@@ -34,7 +32,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
     res.status(constants.SUCCESSFUL_POST).json(newUser);
 });
-
+// desc: Login of user.
+// POST : userLogin
 const userLogin = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     if (!password || !email) {
@@ -55,4 +54,4 @@ const userLogin = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { registerUser, userLogin };
+module.exports = { userRegister, userLogin };
