@@ -1,0 +1,49 @@
+{
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^5.1.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "joi": "^17.9.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.4",
+    "nodemon": "^2.0.22",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2"
+  },
+  "name": "busticket",
+  "description": "Bus Ticket application with user and admin interfaces",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest --testTimeout=50000",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dincz/BusTicket.git"
+  },
+  "author": "Dinesh Nadar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dincz/BusTicket/issues"
+  },
+  "homepage": "https://github.com/Dincz/BusTicket#readme",
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
